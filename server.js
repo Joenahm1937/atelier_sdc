@@ -2,7 +2,7 @@ const express = require('express')
 var expressStaticGzip = require("express-static-gzip");
 const path = require('path');
 const app = express()
-const port = 3000
+const port = 5000
 
 app.use("/", expressStaticGzip(path.join(__dirname, 'client', 'dist'), {
   enableBrotli: true

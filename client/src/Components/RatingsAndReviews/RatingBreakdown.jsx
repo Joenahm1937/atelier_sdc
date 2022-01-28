@@ -12,8 +12,8 @@ class RatingBreakdown extends React.Component {
     // reviews.forEach((review) => {
     //   avg += review.rating;
     // })
-    let num = parseInt(ratings['1']) + parseInt(ratings['2']) + parseInt(ratings['3']) + parseInt(ratings['4']) + parseInt(ratings['5']);
-    let avg = parseInt(ratings['1']) + (parseInt(ratings['2']) * 2) + (parseInt(ratings['3']) * 3) + (parseInt(ratings['4']) * 4) + (parseInt(ratings['5']) * 5);
+    let num = parseInt(ratings['1'] || 0) + parseInt(ratings['2'] || 0) + parseInt(ratings['3'] || 0) + parseInt(ratings['4'] || 0) + parseInt(ratings['5'] || 0);
+    let avg = parseInt(ratings['1'] || 0) + (parseInt(ratings['2'] || 0) * 2) + (parseInt(ratings['3'] || 0) * 3) + (parseInt(ratings['4'] || 0) * 4) + (parseInt(ratings['5'] || 0) * 5);
     avg /= num;
     avg = avg.toFixed(1);
     return avg;
