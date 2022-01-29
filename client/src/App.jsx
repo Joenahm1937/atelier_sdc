@@ -1,16 +1,16 @@
-import React from 'react';
-import axios from 'axios';
-import Overview from './Components/Overview/Overview.jsx';
-import Related from './Components/Related/Related.jsx'
-import RR from './Components/RatingsAndReviews/RatingsAndReviews.jsx';
-import QandA from './Components/QuestionsAndAnswers/QandA.jsx';
+import React from "react";
+import axios from "axios";
+import Overview from "./Components/Overview/Overview.jsx";
+import Related from "./Components/Related/Related.jsx";
+import RR from "./Components/RatingsAndReviews/RatingsAndReviews.jsx";
+import QandA from "./Components/QuestionsAndAnswers/QandA.jsx";
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProduct: 64621
-    }
-    this.apiUrl = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp';
+      currentProduct: 64622,
+    };
+    this.apiUrl = "https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp";
     this.trackClicks = this.trackClicks.bind(this);
   }
 
@@ -20,32 +20,57 @@ class App extends React.Component {
     var timeClicked = new Date();
     var element = event.target;
 
-    axios.post(this.apiUrl + '/interactions',
-    {
-      element: element.className,
-      widget: widgetName,
-      time: timeClicked.toString()
-    },
-    {
-      headers: {
-        'Authorization': process.env.API_KEY,
-      }
-    }).then(() => {
-      console.log('Successfully tracked click');
-    }).catch((error) => {
-      console.log('Error posting to interactions API: ' + error);
-    });
+    axios
+      .post(
+        this.apiUrl + "/interactions",
+        {
+          element: element.className,
+          widget: widgetName,
+          time: timeClicked.toString(),
+        },
+        {
+          headers: {
+            Authorization: process.env.API_KEY,
+          },
+        }
+      )
+      .then(() => {
+        console.log("Successfully tracked click");
+      })
+      .catch((error) => {
+        console.log("Error posting to interactions API: " + error);
+      });
   }
 
   render() {
     return (
       <div>
-        <Overview apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} />
-        <Related apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} />
-        <QandA apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} />
-        <RR apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} />
+        <Overview
+          apiUrl={this.apiUrl}
+          token={process.env.API_KEY}
+          currentProduct={this.state.currentProduct}
+          trackClicks={this.trackClicks}
+        />
+        <Related
+          apiUrl={this.apiUrl}
+          token={process.env.API_KEY}
+          currentProduct={this.state.currentProduct}
+          trackClicks={this.trackClicks}
+        />
+        <QandA
+          apiUrl={this.apiUrl}
+          token={process.env.API_KEY}
+          currentProduct={this.state.currentProduct}
+          trackClicks={this.trackClicks}
+        />
+        <RR
+          apiUrl={this.apiUrl}
+          token={process.env.API_KEY}
+          currentProduct={this.state.currentProduct}
+          trackClicks={this.trackClicks}
+        />
       </div>
-    )
+    );
   }
 }
 
