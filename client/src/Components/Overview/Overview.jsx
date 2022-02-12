@@ -200,7 +200,7 @@ class Overview extends React.Component {
 
   componentDidMount() {
     axios.defaults.headers.common["Authorization"] = this.props.token;
-    axios.get("/overview").then((res) => {
+    axios.get(`/overview/${this.props.currentProduct}`).then((res) => {
       const { styles, product } = res.data;
       console.log(styles, product);
       this.setState({
@@ -214,6 +214,33 @@ class Overview extends React.Component {
         productInfo: product,
       });
     });
+    // axios
+    //   .get(
+    //     this.props.apiUrl + "/products/" + this.props.currentProduct + "/styles"
+    //   )
+    //   .then((results) => {
+    //     //set photos to API results at current index at photos array at current style index
+    //     this.setState({
+    //       prevPhotoUrl:
+    //         results.data.results[0].photos[
+    //           results.data.results[0].photos.length - 1
+    //         ].url,
+    //     });
+    //     this.setState({
+    //       currentPhotoUrl: results.data.results[0].photos[0].url,
+    //     });
+    //     this.setState({ nextPhotoUrl: results.data.results[0].photos[1].url });
+    //     this.setState({ styles: results.data.results });
+    //     this.setState({ inventory: results.data.results[0].skus });
+    //     this.setState({
+    //       maxLength: results.data.results.map((id) => id.photos).length,
+    //     });
+    //   });
+    // axios
+    //   .get(this.props.apiUrl + "/products/" + this.props.currentProduct)
+    //   .then((results) => {
+    //     this.setState({ productInfo: results.data });
+    //   });
     axios
       .get(
         this.props.apiUrl + "/reviews/?product_id=" + this.props.currentProduct
