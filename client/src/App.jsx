@@ -10,8 +10,7 @@ class App extends React.Component {
     this.state = {
       currentProduct: window.location.search.split("=")[1] || 64622,
     };
-    // this.apiUrl = "https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp";
-    this.apiUrl = "http://localhost:3000";
+    this.apiUrl = "https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp";
     this.trackClicks = this.trackClicks.bind(this);
   }
 
@@ -52,7 +51,7 @@ class App extends React.Component {
           currentProduct={this.state.currentProduct}
           trackClicks={this.trackClicks}
         />
-        {/* <Related
+        <Related
           apiUrl={this.apiUrl}
           token={process.env.API_KEY}
           currentProduct={this.state.currentProduct}
@@ -69,7 +68,7 @@ class App extends React.Component {
           token={process.env.API_KEY}
           currentProduct={this.state.currentProduct}
           trackClicks={this.trackClicks}
-        /> */}
+        />
       </div>
     );
   }
