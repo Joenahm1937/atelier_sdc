@@ -101,10 +101,11 @@ class NewReview extends React.Component {
       return;
     }
 
-    // axios.defaults.headers.common['Authorization'] = this.props.token;
+    axios.defaults.headers.common['Authorization'] = this.props.token;
     axios({
       method: 'post',
-      url: `${this.props.apiUrl}/reviews`,
+      url: `/reviews`,
+      // url: `${this.props.apiUrl}/reviews`,
       data: {
         product_id: this.props.productId,
         rating: this.state.rating,
@@ -122,6 +123,26 @@ class NewReview extends React.Component {
         Authorization: this.props.token
       }
     })
+    // axios({
+    //   method: 'post',
+    //   url: `/reviews`,
+    //   data: {
+    //     product_id: this.props.productId,
+    //     rating: this.state.rating,
+    //     summary: this.state.summary,
+    //     body: this.state.body,
+    //     recommend: this.state.recommend,
+    //     name: this.state.name,
+    //     email: this.state.email,
+    //     photos: this.state.photos,
+    //     characteristics: this.state.characteristics
+    //   },
+    //   headers: {
+    //   //   'content-type': 'application/json',
+    //   //   Accept: 'application/json'
+    //     Authorization: this.props.token
+    //   }
+    // })
       .then((status) => {
         console.log('form submission success: ', status);
         this.setState({

@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentProduct: window.location.search.split("=")[1] || 64622,
+      currentProduct: window.location.search.split("=")[1] || 65000,
     };
     this.apiUrl = "https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp";
     this.trackClicks = this.trackClicks.bind(this);
@@ -19,6 +19,7 @@ class App extends React.Component {
   trackClicks(event, widgetName) {
     var timeClicked = new Date();
     var element = event.target;
+
 
     axios
       .post(

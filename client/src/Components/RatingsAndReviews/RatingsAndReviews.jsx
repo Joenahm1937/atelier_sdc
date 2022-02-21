@@ -27,7 +27,8 @@ class RR extends React.Component {
 
   componentDidMount() {
     axios.defaults.headers.common['Authorization'] = this.props.token;
-    axios.get(`${this.props.apiUrl}/reviews/?product_id=${this.props.currentProduct}&sort=${this.state.sorting}&count=${this.state.count}`)
+    //axios.get(`${this.props.apiUrl}/reviews/?product_id=${this.props.currentProduct}&sort=${this.state.sorting}&count=${this.state.count}`)
+     axios.get(`/reviews/?product_id=${this.props.currentProduct}&sort=${this.state.sorting}&count=${this.state.count}`)
     .then((results) => {
       if (results.data.results.length > this.state.count - 1) {
         let limitResults = results.data.results;
@@ -37,12 +38,14 @@ class RR extends React.Component {
           reviews: limitResults
         })
       } else {
+        let limitResults = results.data.results;
+        limitResults.splice(this.state.count - 1);
         this.setState({
-          showMore: false
+          showMore: false,
+          reviews: limitResults
         })
       }
       return true;
-      // console.log('this.state.reviews: ', this.state.reviews);
     })
     .catch((err) => {
       console.log('API get /reviews failed: ', err);
@@ -58,20 +61,22 @@ class RR extends React.Component {
       console.log(`API get /products/${this.props.currentProduct} failed: `, err);
     })
 
-    axios.get(`${this.props.apiUrl}/reviews/meta/?product_id=${this.props.currentProduct}`)
+     axios.get(`/reviews/meta/?product_id=${this.props.currentProduct}`)
+    //axios.get(`${this.props.apiUrl}/reviews/meta/?product_id=${this.props.currentProduct}`)
       .then((results) => {
         this.setState({
           meta: results.data
         })
-        console.log('this.state.meta: ', this.state.meta);
       })
       .catch((err) => {
         console.log('API get /reviews/meta failed: ', err);
       })
+
   }
 
   changeSort(e) {
-    axios.get(`${this.props.apiUrl}/reviews/?product_id=${this.props.currentProduct}&sort=${e.target.value}&count=${this.state.count}`)
+    //axios.get(`${this.props.apiUrl}/reviews/?product_id=${this.props.currentProduct}&sort=${e.target.value}&count=${this.state.count}`)
+    axios.get(`/reviews/?product_id=${this.props.currentProduct}&sort=${e.target.value}&count=${this.state.count}`)
       .then((results) => {
         let limitResults = results.data.results.slice();
         limitResults.splice(this.state.count - 1);
@@ -89,8 +94,8 @@ class RR extends React.Component {
     this.setState({
       count: this.state.count + 2
     }, () => {
-      console.log(this.state.sorting)
-      axios.get(`${this.props.apiUrl}/reviews/?product_id=${this.props.currentProduct}&sort=${this.state.sorting}&count=${this.state.count}`)
+      //axios.get(`${this.props.apiUrl}/reviews/?product_id=${this.props.currentProduct}&sort=${this.state.sorting}&count=${this.state.count}`)
+      axios.get(`/reviews/?product_id=${this.props.currentProduct}&sort=${this.state.sorting}&count=${this.state.count}`)
         .then((results) => {
           let limitResults = results.data.results.slice();
           limitResults.splice(this.state.count - 1);
@@ -162,9 +167,9 @@ class RR extends React.Component {
     }
     var filteredReviews = this.state.ratingFilter.length > 0 ? this.state.reviews.filter(review => this.state.ratingFilter.includes(review.rating)) : this.state.reviews;
     var display;
-    if (!(this.state.reviews.length > 0 && Object.keys(this.state.meta).length > 0 && this.state.productName !== '')) {
-      display = <p>Loading...</p>;
-    } else {
+    // if (!(this.state.reviews.length > 0 && Object.keys(this.state.meta).length > 0 && this.state.productName !== '')) {
+    //   display = <p>Loading...</p>;
+    // } else {
       // display everything
       display =
       <div className="RandR">
@@ -211,7 +216,7 @@ class RR extends React.Component {
           </div>
         </div>
       </div>
-    }
+    // }
 
 
     return (

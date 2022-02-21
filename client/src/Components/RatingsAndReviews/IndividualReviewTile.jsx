@@ -47,7 +47,8 @@ class IndividualReviewTile extends React.Component {
 
   helpfulClick() {
     if ( !this.state.helpful ) {
-      axios.put(`${this.props.apiUrl}/reviews/${this.props.review.review_id}/helpful`)
+      // axios.put(`${this.props.apiUrl}/reviews/${this.props.review.review_id}/helpful`)
+      axios.put(`/reviews/${this.props.review.review_id}/helpful`)
         .then(() => {
           console.log('helpful PUT success');
           this.setState({
@@ -62,7 +63,8 @@ class IndividualReviewTile extends React.Component {
   }
 
   reportClick() {
-    axios.put(`${this.props.apiUrl}/reviews/${this.props.review.review_id}/report`)
+    axios.put(`/reviews/${this.props.review.review_id}/report`)
+    // axios.put(`${this.props.apiUrl}/reviews/${this.props.review.review_id}/report`)
         .then(() => {
           console.log('report PUT success');
         })
