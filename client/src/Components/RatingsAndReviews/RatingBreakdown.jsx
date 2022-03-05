@@ -21,7 +21,9 @@ class RatingBreakdown extends React.Component {
 
   calculateRecommended(meta) {
     if (Object.keys(meta).length > 0) {
-      var percent = parseInt(meta.recommended.true) / (parseInt(meta.recommended.true) + parseInt(meta.recommended.false)) * 100;
+      let trueCount = parseInt(meta.recommended.true) || 0;
+      let falseCount = (parseInt(meta.recommended.false) || 0);
+      var percent = (trueCount) / (trueCount + falseCount) * 100;
       percent = percent.toFixed(1);
       return `${percent}%`;
     }
@@ -41,7 +43,9 @@ class RatingBreakdown extends React.Component {
     var ratingFilter = this.props.ratingFilter;
     var display;
     if (metaData && Object.keys(metaData).length > 0) {
-      let totalReviews = parseInt(this.props.meta.recommended.false) + parseInt(this.props.meta.recommended.true);
+      let metaRecommended = parseInt(this.props.meta.recommended.true) || 0;
+      let metaNotRecommended = parseInt(this.props.meta.recommended.false) || 0;
+      let totalReviews = metaNotRecommended + metaRecommended;
       let stars = Object.keys(this.props.meta.ratings).reverse();
       var starsBreakdown = stars.map((star, index) => {
         let style = {
@@ -76,7 +80,6 @@ class RatingBreakdown extends React.Component {
 
       var avgRating = this.calculateAvg(metaData.ratings);
       var percentage = (Math.round(avgRating * 4) / 4).toFixed(2) / 5 * 100;
-      console.log('percentage', percentage);
 
       display =
         <div>
