@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 
 app.get("/overview/:id", (req, res) => {
   const { id } = req.params;
-  request(`http://localhost:3000/overview/${id}`).pipe(res);
+  request(`http://${JSON.parse(process.env.IPS).overviewIP}/overview/${id}`).pipe(res);
 });
 
 app.listen(port, () => {
