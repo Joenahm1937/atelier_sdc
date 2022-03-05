@@ -8,8 +8,11 @@ const app = express();
 const port = 5000;
 const request = require("request");
 const dotenv = require('dotenv');
+const cors = require('cors');
 var proxy = httpProxy.createProxyServer();
 dotenv.config();
+
+app.use(cors());
 
 
 app.use(
