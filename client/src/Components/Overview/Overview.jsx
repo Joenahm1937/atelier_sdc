@@ -200,7 +200,7 @@ class Overview extends React.Component {
 
   componentDidMount() {
     axios.defaults.headers.common["Authorization"] = this.props.token;
-    axios.get(`/overview/${this.props.currentProduct}`).then((res) => {
+    axios.get(`/products/overview/${this.props.currentProduct}`).then((res) => {
       const { styles, product } = res.data;
       console.log(styles, product);
       this.setState({
