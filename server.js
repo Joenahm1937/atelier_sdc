@@ -1,7 +1,7 @@
 const express = require("express");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 // var httpProxy = require("http-proxy");
-var apiProxy = httpProxy.createProxyServer();
+// var apiProxy = httpProxy.createProxyServer();
 // var expressStaticGzip = require("express-static-gzip");
 const path = require("path");
 const app = express();
@@ -11,8 +11,9 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 // var proxy = httpProxy.createProxyServer();
 dotenv.config();
+console.log(process.env.IPS);
 const { overviewIP, reviewsIP, qaIP } = process.env.IPS
-  ? `http://${JSON.parse(process.env.IPS)}`
+  ? JSON.parse(process.env.IPS)
   : "http://localhost:3000";
 
 app.use(cors());
@@ -30,15 +31,18 @@ app.use(cors());
 
 app.use(
   "/products",
-  createProxyMiddleware({ target: overviewIP, changeOrigin: true })
+  createProxyMiddleware({ target: `http://${overviewIP}`, changeOrigin: true })
 );
 
 app.use(
   "/reviews",
-  createProxyMiddleware({ target: reviewsIP, changeOrigin: true })
+  createProxyMiddleware({ target: `http://${reviewsIP}`, changeOrigin: true })
 );
 
-app.use("/qa", createProxyMiddleware({ target: qaIP, changeOrigin: true }));
+app.use(
+  "/qa",
+  createProxyMiddleware({ target: `http://${qaIP}`, changeOrigin: true })
+);
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
