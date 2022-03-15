@@ -11,8 +11,8 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 var proxy = httpProxy.createProxyServer();
 dotenv.config();
-const overviewIP = process.env.IPS
-  ? `http://${JSON.parse(process.env.IPS).overviewIP}`
+const { overviewIP, reviewsIP, qaIP } = process.env.IPS
+  ? `http://${JSON.parse(process.env.IPS)}`
   : "http://localhost:3000";
 
 app.use(cors());
@@ -35,19 +35,10 @@ app.use(
 
 app.use(
   "/reviews",
-  createProxyMiddleware({
-    target: "http://localhost:3000",
-    onProxyReq: function onProxyReq(proxyReq, req) {
-      proxyReq.setHeader("Authorization", process.env.API_KEY);
-      if (req.body) {
-        const bodyData = JSON.stringify(req.body);
-        proxyReq.setHeader("Content-Type", "application/json");
-        proxyReq.setHeader("Content-Length", Buffer.byteLength(bodyData));
-        proxyReq.write(bodyData);
-      }
-    },
-  })
+  createProxyMiddleware({ target: reviewsIP, changeOrigin: true })
 );
+
+app.use("/qa", createProxyMiddleware({ target: qaIP, changeOrigin: true }));
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
